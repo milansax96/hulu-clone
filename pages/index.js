@@ -4,11 +4,13 @@ import Nav from "../components/Nav";
 import Results from "../components/Results";
 import requests from "../utils/requests";
 
+
 export default function Home({ results }) {
+    console.log(results)
     return (
         <div>
             <Head>
-                <title>Hulu 2.0</title>
+                <title>MovieTerminal</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
