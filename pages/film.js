@@ -6,8 +6,6 @@ import {Spotify} from 'react-spotify-embed';
 import songRequests from "../utils/songRequests";
 import Image from "next/image";
 
-const CLIENT_ID = '86568e51e1f84227a7996668cbc8cd91';
-
 export default function Film({ results, songResults, posterPath }) {
     const BASE_URL = 'https://image.tmdb.org/t/p/original'
     const [trailerVideo, setTrailerVideo] = useState({});
@@ -74,7 +72,7 @@ export async function getServerSideProps(context) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + songRequests['fetchSoundtrack'].clientSecret
+        body: 'grant_type=client_credentials&client_id=' + songRequests['fetchSoundtrack'].clientID + '&client_secret=' + songRequests['fetchSoundtrack'].clientSecret
     }
 
     const tokenRequest = await fetch(
