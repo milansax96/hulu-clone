@@ -29,7 +29,7 @@ export default function Film({ results, songResults, posterPath }) {
             const albumResults = songResults['albums']['items']
             for (let i = 0; i < albumResults.length; i++) {
                 const albumName = albumResults[i]['name']
-                if (albumName.toLowerCase().includes('soundtrack')) {
+                if (albumName.toLowerCase().includes('soundtrack') || albumName.toLowerCase().includes('album') || albumName.toLowerCase().includes('motion picture')) {
                     return albumResults[i]['external_urls']['spotify']
                 }
             }
