@@ -44,7 +44,7 @@ export default function Film({ results, songResults, posterPath }) {
     return (
         <div>
             <Header />
-            <div className='sm:grid gap-8 place-items-center xl:flex justify-around'>
+            <div className='grid gap-8 place-items-center xl:flex justify-around'>
                 {posterPath ?
                     <Image className='rounded-md transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50' width={300} height={300} src={`${BASE_URL}/${posterPath}`} /> : null}
                 {trailerVideo ?
