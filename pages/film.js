@@ -5,11 +5,14 @@ import Header from "../components/Header";
 import {Spotify} from 'react-spotify-embed';
 import songRequests from "../utils/songRequests";
 import Image from "next/image";
+import {useMediaQuery} from 'react-responsive';
 
 export default function Film({ results, songResults, posterPath }) {
     const BASE_URL = 'https://image.tmdb.org/t/p/original'
     const [trailerVideo, setTrailerVideo] = useState({});
     const [filmSoundtrack, setFilmSoundtrack] = useState('');
+    const isMobile = useMediaQuery({ maxWidth: 640 });
+
 
     const findTrailerVideo = () => {
         const videoList = []
@@ -47,8 +50,10 @@ export default function Film({ results, songResults, posterPath }) {
             <div className='grid gap-8 place-items-center xl:flex justify-around'>
                 {posterPath ?
                     <Image className='rounded-md transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50' width={300} height={300} src={`${BASE_URL}/${posterPath}`} /> : null}
-                {trailerVideo ?
+                {(!isMobile && trailerVideo) ?
                     <ReactPlayer url={`https://youtube.com/watch?v=${trailerVideo.key}`}></ReactPlayer> : null}
+                {(isMobile && trailerVideo) ?
+                    <ReactPlayer width='100%' height='100%' url={`https://youtube.com/watch?v=${trailerVideo.key}`}></ReactPlayer> : null}
                 {filmSoundtrack ?
                     <Spotify link={filmSoundtrack} /> : null}
             </div>
@@ -60,8 +65,6 @@ export async function getServerSideProps(context) {
     const id = context.query['id'];
     const name = context.query['name'];
     const poster_path = context.query['poster_path'];
-
-    console.log(context.query)
 
     const request = await fetch(
         `https://api.themoviedb.org/3/movie/${id}${filmRequests['fetchVideos'].url}`
